@@ -1,10 +1,16 @@
 $primary-color: mediumslateblue;
 $primary-light: cornflowerblue;
 $accent-color: chocolate;
+$accent-color-dark: brown;
 $max-section-width: 1500px;
 $std-spacing: 15px;
 $std-spacing-double: #{$std-spacing * 2};
 $short-anim-time: 0.2s;
+$med-anim-time: 0.5s;
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
@@ -27,17 +33,16 @@ header {
   color: cornsilk;
   text-transform: uppercase;
   z-index: 10;
-  box-shadow: 0 4px 8px 1px rgba(0,0,0,0.7);
+  box-shadow: 0 4px 8px 1px rgba(0, 0, 0, 0.7);
   padding: $std-spacing 0;
 }
 
 header h1 {
-  display: inline;
-  margin: $std-spacing;
+  margin: 0 $std-spacing $std-spacing $std-spacing;
 }
 
 nav {
-  margin: 0;
+  margin: 0 $std-spacing;
 }
 
 nav a {
@@ -46,17 +51,20 @@ nav a {
   text-decoration: none;
 }
 
-@media only screen and (min-width: 700px) {
-  nav {
-    float: right;
-  }
+@media only screen and (min-width: 710px) {
+
   header div {
     height: $header-height;
     max-width: $max-section-width;
     margin-left: auto;
     margin-right: auto;
-    line-height: $header-height;
-    vertical-align: middle;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  header h1 {
+    margin: $std-spacing;
   }
 
   .collapse {
@@ -109,11 +117,15 @@ main {
   margin: 0;
 }
 
+section {
+  overflow: hidden;
+}
+
 .avatar {
   display: block;
   height: $std-img-size;
   width: $std-img-size;
-  margin: $std-spacing-double auto 0 auto;
+  margin: $std-spacing auto 0 auto;
   border-radius: 50%;
   background-color: $accent-color;
 }
@@ -122,6 +134,8 @@ main {
   max-width: $max-section-width;
   margin-left: auto;
   margin-right: auto;
+  padding-top: $std-spacing;
+  padding-bottom: $std-spacing;
 }
 
 .section-content h2 {
@@ -133,7 +147,7 @@ main {
 }
 
 .section-content h3 {
-  padding-bottom: $std-spacing-double;
+  padding-bottom: $std-spacing;
   margin: 0;
   text-align: center;
 }
@@ -146,10 +160,18 @@ main {
   color: white;
 }
 
-#apps-section, #projects-section {
+.section-tip {
+  display: block;
+  text-align: center;
+}
+
+#apps-section, #projects-section, #music-section {
   background-color: $primary-light;
 }
 
+#music-section h3 {
+  margin-top: $std-spacing;
+}
 
 /**
   Card styles
@@ -163,7 +185,7 @@ $card-height: 155px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-bottom: $std-spacing-double;
+  padding-bottom: $std-spacing;
 }
 
 .app-card {
@@ -186,13 +208,12 @@ $card-height: 155px;
 }
 
 .app-card img {
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  margin:auto;
-  float: left;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
   width: $icon-size;
   max-height: $card-height;
   border-radius: $card-border-radius 0 0 $card-border-radius;
@@ -213,7 +234,7 @@ $card-height: 155px;
   width: 100%;
   background: black;
   transition: $short-anim-time ease;
-  opacity:0;
+  opacity: 0;
   border-radius: $card-border-radius;
   color: white;
 }
@@ -229,11 +250,16 @@ $card-height: 155px;
 .accent-card {
   background-color: $accent-color;
   color: white;
+  text-decoration: none;
+}
+
+.accent-card:hover {
+  background-color: $accent-color-dark;
 }
 
 .accent-card figure {
-  background-color: $accent-color;
   text-align: center;
+  background: none;
 }
 
 .accent-card i {
@@ -242,11 +268,282 @@ $card-height: 155px;
   transform: translate(0, -50%);
 }
 
+#music-section video {
+  width: 426px;
+  height: auto;
+  margin: 0 $std-spacing $std-spacing $std-spacing;
+}
+
 /**
   Column styles
  */
 
 .columns {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.columns > a {
+  padding: $std-spacing-double;
+  text-align: center;
+  flex-basis: 200px;
+  color: white;
+  text-decoration: none;
+}
+
+.columns > a:hover {
+  background-color: $primary-color;
+}
+
+.columns p {
+  margin-bottom: $std-spacing-double;
+}
+
+.column-text {
+  text-align: justify;
+  margin: $std-spacing;
+  flex-grow: 1;
+}
+
+.about-columns {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+
+.about-columns > img {
+  height: $std-img-size;
+  width: $std-img-size;
+  margin: $std-spacing;
+  border-radius: 50%;
+  background-color: $accent-color;
+}
+
+@media only screen and (min-width: 810px) {
+  .columns {
+    justify-content: stretch;
+    flex-wrap: nowrap;
+  }
+
+  .columns > a {
+    flex: 1;
+    flex-basis: auto;
+  }
+
+  .column-text {
+    column-count: 2;
+    column-gap: 50px;
+  }
+
+  .about-columns > div {
+    padding-left: 50px;
+  }
+}
+
+/**
+  Carousal stuff
+ */
+
+$carousal-height: 400px;
+
+.exit-left {
+  animation: exit-left $med-anim-time ease forwards;
+}
+
+@keyframes exit-left {
+  from {
+    left: 0;
+    opacity: 1;
+  }
+  to {
+    left: -100%;
+    opacity: 0;
+  }
+}
+
+.slide-from-right {
+  animation: slide-from-right $med-anim-time ease forwards;
+}
+
+@keyframes slide-from-right {
+  from {
+    left: 100%;
+    opacity: 0;
+  }
+  to {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+.exit-right {
+  animation: exit-right $med-anim-time ease forwards;
+}
+
+@keyframes exit-right {
+  from {
+    left: 0;
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    left: 100%;
+  }
+}
+
+.slide-from-left {
+  animation: slide-from-left $med-anim-time ease forwards;
+}
+
+@keyframes slide-from-left {
+  from {
+    left: -100%;
+    opacity: 0;
+  }
+  to {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+.carousal {
+  position: relative;
+  height: $carousal-height;
+  margin: 0 $std-spacing $std-spacing-double $std-spacing;
+}
+
+.carousal-slide {
+  position: absolute;
+  max-height: $carousal-height;
+  max-width: 100%;
+  display: none;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+  margin: auto;
+}
+
+.prev-btn, .next-btn {
+  position: absolute;
+  cursor: pointer;
+  z-index: 2;
+  top: 50%;
+  transform: translate(0, -50%);
+  color: black;
+  opacity: 0.6;
+}
+
+.next-btn {
+  right: 0;
+}
+
+.next-btn:hover, .prev-btn:hover {
+  opacity: 1;
+}
+
+/**
+  Modal window styles
+ */
+
+$modal-caption-height: 25px;
+
+#img-enlarged {
+  position: fixed;
+  z-index: 99;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.modal-invisible {
+  opacity: 0;
+  visibility: collapse;
+  transition: all 0.3s ease;
+}
+
+.modal-visible {
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.3s ease;
+}
+
+.zoom-in {
+  transform: scale(1);
+  transition: all 0.3s ease;
+}
+
+.zoom-out {
+  transform: scale(0.7);
+  transition: all 0.3s ease;
+}
+
+#img-enlarged figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#modal-img {
+  max-width: 100%;
+  max-height: calc(100% - #{$modal-caption-height} - #{3*$std-spacing});
+  padding: $std-spacing;
+}
+
+#modal-img-caption h3 {
+  flex: auto;
+  margin: 0;
+  height: $modal-caption-height;
+  padding: 0 $std-spacing $std-spacing $std-spacing;
+}
+
+#close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+  text-align: center;
+}
+
+#prev-btn-modal, #next-btn-modal, #close-btn {
+  padding: $std-spacing;
+  margin: $std-spacing;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+}
+
+/**
+  Footer styles
+ */
+
+footer {
+  height: $header-height;
+  background-color: $accent-color-dark;
+}
+
+.footer-content {
+  position: relative;
+  text-align: center;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.footer-content a {
+  color: white;
+  text-decoration: none;
+  padding: 0 $std-spacing;
 }
