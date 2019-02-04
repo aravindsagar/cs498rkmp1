@@ -472,6 +472,8 @@ $carousal-height: 400px;
   transform: translate(0, -50%);
   color: black;
   opacity: 0.6;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
 }
 
 .prev-btn {
@@ -563,7 +565,6 @@ $modal-caption-height: 25px;
 }
 
 #prev-btn-modal, #next-btn-modal, #close-btn {
-  padding: $std-spacing;
   margin: $std-spacing;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 50%;
