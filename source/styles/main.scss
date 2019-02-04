@@ -55,6 +55,14 @@ nav a {
   cursor: pointer;
 }
 
+.none-display {
+  display: none;
+}
+
+.block-display {
+  display: block;
+}
+
 @media only screen and (min-width: 710px) {
 
   header div {
@@ -81,6 +89,10 @@ nav a {
 
   #drawer-btn {
     display: none;
+  }
+
+  #main-nav {
+    display: block;
   }
 }
 

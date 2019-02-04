@@ -13,6 +13,7 @@ carousalImgIdx.forEach((imgIdx, carousalIdx) => {
 });
 let modalCarousalIdx = 0;
 let enlargedImgIdx = 0;
+let navVisible = false;
 
 function headerResize() {
   if (window.scrollY > 0) {
@@ -96,10 +97,14 @@ function isUsingDrawer() {
 
 function toggleNavLinks() {
   if (!isUsingDrawer()) return;
-  if (!nav.style.display || nav.style.display === "none") {
-    nav.style.display = "block";
+  if (navVisible) {
+    nav.classList.remove('block-display');
+    nav.classList.add('none-display');
+    navVisible = false;
   } else {
-    nav.style.display = "none";
+    nav.classList.remove('none-display');
+    nav.classList.add('block-display');
+    navVisible = true;
   }
 }
 
