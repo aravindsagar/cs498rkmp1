@@ -7,6 +7,7 @@ $std-spacing: 15px;
 $std-spacing-double: #{$std-spacing * 2};
 $short-anim-time: 0.2s;
 $med-anim-time: 0.5s;
+$breakpoint: 768px;
 
 html {
   scroll-behavior: smooth;
@@ -42,13 +43,19 @@ header h1 {
 }
 
 nav {
+  display: none;
   margin: 0 $std-spacing;
 }
 
 nav a {
+  display: block;
   padding: $std-spacing;
   color: white;
   text-decoration: none;
+}
+
+header h1 {
+  margin: 0 0 0 $std-spacing;
 }
 
 #drawer-btn {
@@ -63,7 +70,7 @@ nav a {
   display: block;
 }
 
-@media only screen and (min-width: 710px) {
+@media only screen and (min-width: $breakpoint) {
 
   header div {
     height: $header-height;
@@ -79,6 +86,10 @@ nav a {
     margin: $std-spacing;
   }
 
+  nav a {
+    display: inline;
+  }
+
   .collapse {
     animation: collapse $short-anim-time ease forwards;
   }
@@ -92,20 +103,6 @@ nav a {
   }
 
   #main-nav {
-    display: block;
-  }
-}
-
-@media only screen and (max-width: 709px) {
-  header h1 {
-    margin: 0 0 0 $std-spacing;
-  }
-
-  nav {
-    display: none;
-  }
-
-  nav a {
     display: block;
   }
 }
@@ -353,7 +350,7 @@ $card-height: 155px;
   background-color: $accent-color;
 }
 
-@media only screen and (min-width: 810px) {
+@media only screen and (min-width: $breakpoint) {
   .about-columns {
     display: flex;
     flex-flow: row;
