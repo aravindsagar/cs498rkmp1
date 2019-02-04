@@ -51,6 +51,10 @@ nav a {
   text-decoration: none;
 }
 
+#drawer-btn {
+  cursor: pointer;
+}
+
 @media only screen and (min-width: 710px) {
 
   header div {
@@ -73,6 +77,24 @@ nav a {
 
   .open {
     animation: open $short-anim-time ease forwards;
+  }
+
+  #drawer-btn {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 709px) {
+  header h1 {
+    margin: 0 0 0 $std-spacing;
+  }
+
+  nav {
+    display: none;
+  }
+
+  nav a {
+    display: block;
   }
 }
 
@@ -190,7 +212,7 @@ $card-height: 155px;
 
 .app-card {
   position: relative;
-  height: $card-height;
+  min-height: $card-height;
   flex-basis: 360px;
   margin: $std-spacing;
   border-radius: $card-border-radius;
@@ -268,8 +290,9 @@ $card-height: 155px;
   transform: translate(0, -50%);
 }
 
+
 #music-section video {
-  width: 426px;
+  max-width: 100%;
   height: auto;
   margin: 0 $std-spacing $std-spacing $std-spacing;
 }
@@ -307,9 +330,7 @@ $card-height: 155px;
 }
 
 .about-columns {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
+  text-align: center;
 }
 
 .about-columns > img {
@@ -321,6 +342,12 @@ $card-height: 155px;
 }
 
 @media only screen and (min-width: 810px) {
+  .about-columns {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+  }
+
   .columns {
     justify-content: stretch;
     flex-wrap: nowrap;
@@ -433,6 +460,10 @@ $carousal-height: 400px;
   transform: translate(0, -50%);
   color: black;
   opacity: 0.6;
+}
+
+.prev-btn {
+  left: 0;
 }
 
 .next-btn {

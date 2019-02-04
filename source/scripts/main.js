@@ -5,6 +5,7 @@ const carousalSlides = [document.getElementsByName('carousal-1-slide'), document
 const imgEnlarged = document.getElementById('img-enlarged');
 const modalImg = document.getElementById('modal-img');
 const modalImgCaption = document.getElementById('modal-img-caption');
+const drawerBtn = document.getElementById('drawer-btn');
 
 let carousalImgIdx = [0, 0];
 carousalImgIdx.forEach((imgIdx, carousalIdx) => {
@@ -89,6 +90,19 @@ function updateEnlargedImg(imgIdx) {
   showEnlargedImg(slides[imgIdx]);
 }
 
+function isUsingDrawer() {
+  return drawerBtn.offsetHeight > 0 && drawerBtn.offsetWidth > 0;
+}
+
+function toggleNavLinks() {
+  if (!isUsingDrawer()) return;
+  if (!nav.style.display || nav.style.display === "none") {
+    nav.style.display = "block";
+  } else {
+    nav.style.display = "none";
+  }
+}
+
 window.addEventListener("scroll", () => {
   headerResize();
   updateNavSelection();
@@ -122,6 +136,10 @@ document.getElementById('close-btn').onclick = () => {
   closeEnlargedImg();
 };
 
+document.getElementById('drawer-btn').onclick = () => {
+  toggleNavLinks();
+};
+
 carousalSlides.forEach((slides, idx) => {
   Array.prototype.forEach.call(slides, (s, i) => {
     s.onclick = () => {
@@ -130,4 +148,10 @@ carousalSlides.forEach((slides, idx) => {
       showEnlargedImg(s);
     };
   });
+});
+
+Array.prototype.forEach.call(nav.children, (c) => {
+  c.onclick = () => {
+    toggleNavLinks();
+  }
 });
