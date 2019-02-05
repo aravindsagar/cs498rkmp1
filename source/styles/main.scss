@@ -226,16 +226,20 @@ $card-height: 155px;
   margin: $std-spacing;
   border-radius: $card-border-radius;
   background-color: white;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
 .app-card figure {
   position: relative;
   background-color: darkslateblue;
-  float: left;
-  height: $card-height;
-  width: #{$icon-size + 2*$card-img-padding};
-  margin: 0 $std-spacing 0 0;
-  border-radius: $card-border-radius 0 0 $card-border-radius;
+  min-height: $card-height;
+  margin: 0;
+  border-radius: $card-border-radius $card-border-radius 0 0;
+  flex: 0 0 #{$icon-size + 2*$card-img-padding};
+  width: 100%;
 }
 
 .app-card img {
@@ -245,13 +249,16 @@ $card-height: 155px;
   left: 0;
   right: 0;
   margin: auto;
-  width: $icon-size;
-  max-height: $card-height;
-  border-radius: $card-border-radius 0 0 $card-border-radius;
+  height: $icon-size;
+  max-width: $card-height;
+  width: auto;
+  max-height: none;
+  border-radius: $card-border-radius $card-border-radius 0 0;
 }
 
-.app-card-text {
-  margin: $std-spacing;
+.app-card-text, .accent-card-text {
+  margin: 0 $std-spacing $std-spacing $std-spacing;
+  text-align: center;
 }
 
 .overlay {
@@ -304,6 +311,33 @@ $card-height: 155px;
   max-width: 100%;
   height: auto;
   margin: 0 $std-spacing $std-spacing $std-spacing;
+}
+
+@media only screen and (min-width: 320px) {
+  .app-card {
+    flex-flow: row;
+  }
+
+  .app-card figure {
+    height: 100%;
+    border-radius: $card-border-radius 0 0 $card-border-radius;
+  }
+
+  .app-card img {
+    width: $icon-size;
+    max-height: $card-height;
+    height: auto;
+    max-width: none;
+    border-radius: $card-border-radius 0 0 $card-border-radius;
+  }
+
+  .accent-card-text {
+    margin-left: 0;
+  }
+
+  .app-card-text, .accent-card-text {
+    text-align: left;
+  }
 }
 
 /**
@@ -381,7 +415,8 @@ $card-height: 155px;
   Carousal stuff
  */
 
-$carousal-height: 400px;
+$carousal-height: calc(100vw * 0.56); //400px;
+$carousal-height-max: 400px;
 
 .exit-left {
   animation: exit-left $med-anim-time ease forwards;
@@ -483,6 +518,16 @@ $carousal-height: 400px;
 
 .next-btn:hover, .prev-btn:hover {
   opacity: 1;
+}
+
+@media only screen and (min-width: 670px) {
+  .carousal {
+    height: $carousal-height-max;
+  }
+
+  .carousal-slide {
+    max-height: $carousal-height-max;
+  }
 }
 
 /**
