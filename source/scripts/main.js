@@ -145,6 +145,10 @@ document.getElementById('drawer-btn').onclick = () => {
   toggleNavLinks();
 };
 
+document.addEventListener("click", (event) => {
+  if (navVisible && !event.target.closest('header')) toggleNavLinks();
+});
+
 carousalSlides.forEach((slides, idx) => {
   Array.prototype.forEach.call(slides, (s, i) => {
     s.onclick = () => {
