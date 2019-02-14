@@ -28,7 +28,7 @@ function headerResize() {
 function updateNavSelection() {
   for (let i = 0; i < nav.children.length; i++) {
     const scrollY = window.scrollY + header.offsetHeight;
-    const sectionId = nav.children.item(i).href.split('#')[1];
+    const sectionId = nav.children.item(i).getAttribute('data-link');
     const section = document.getElementById(sectionId);
     if (section && scrollY >= section.offsetTop && scrollY < section.offsetTop + section.offsetHeight) {
       nav.children.item(i).classList.add('nav-selected');
@@ -45,8 +45,8 @@ function updateCarousal(imgIdx, carousalIdx) {
   if (imgIdx < 0 || imgIdx >= slides.length) return;
 
   Array.prototype.forEach.call(slides, (s) => {
-      s.style.display = "none";
-      s.className = "carousal-slide";
+    s.style.display = "none";
+    s.className = "carousal-slide";
   });
   let curSlide = slides.item(imgIdx);
   curSlide.style.display = 'block';
@@ -108,6 +108,42 @@ function toggleNavLinks() {
   }
 }
 
+function smoothScroll(destination) {
+  const durationRatioToMovementRatio = (t) => {
+    return t < 0.5 ? 2 * t * t : (4 - 2 * t) * t - 1;
+  };
+
+  const start = window.pageYOffset;
+  const startTime = new Date().getTime();
+  const bodyHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight,
+      document.documentElement.clientHeight, document.documentElement.scrollHeight,
+      document.documentElement.offsetHeight);
+
+  const destinationOffset = Math.round((destination.offsetTop > bodyHeight - window.innerHeight) ?
+      bodyHeight - window.innerHeight : destination.offsetTop);
+  const duration = Math.round(Math.abs(destinationOffset - start)/2);
+
+  if ('requestAnimationFrame' in window === false) {
+    window.scroll(0, destinationOffset);
+    return;
+  }
+
+  const scrollFunction = () => {
+    const now = new Date().getTime();
+    const durationRatio = Math.min(1, (now - startTime)/duration);
+    const scrollRatio = durationRatioToMovementRatio(durationRatio);
+    window.scroll(0, Math.round(start + (destinationOffset - start) * scrollRatio));
+
+    if (Math.abs(window.pageYOffset - destinationOffset) > 1) {
+      requestAnimationFrame(scrollFunction);
+    } else {
+      destination.focus();
+    }
+  };
+
+  scrollFunction();
+}
+
 window.addEventListener("scroll", () => {
   headerResize();
   updateNavSelection();
@@ -161,6 +197,8 @@ carousalSlides.forEach((slides, idx) => {
 
 Array.prototype.forEach.call(nav.children, (c) => {
   c.onclick = () => {
+    const sectionId = c.getAttribute('data-link');
+    smoothScroll(document.getElementById(sectionId));
     toggleNavLinks();
   }
 });

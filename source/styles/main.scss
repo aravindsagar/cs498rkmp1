@@ -9,10 +9,6 @@ $short-anim-time: 0.2s;
 $med-anim-time: 0.5s;
 $breakpoint: 768px;
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   margin: 0;
   font-family: 'Krub', sans-serif;
@@ -52,6 +48,7 @@ nav a {
   padding: $std-spacing;
   color: white;
   text-decoration: none;
+  cursor: pointer;
 }
 
 header h1 {
